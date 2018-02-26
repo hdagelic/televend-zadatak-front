@@ -16,9 +16,8 @@ export class ProfileLstComponent implements OnInit, OnDestroy {
   userDetails2;
   displayedColumns = ["id", "ime", "email", "tip", "view"];
   
-  // Tu spremamo subscriptione da se mozemo unsubscribeati
-  private subAllUsers : ISubscription;
-  private subUserDetails : ISubscription;
+  // Da li refreshati podatke?
+  public static Refresh = false;
 
   constructor(private userService: UsersService, 
               public dialog: MatDialog,
@@ -27,18 +26,25 @@ export class ProfileLstComponent implements OnInit, OnDestroy {
   // Dohvati podatke, i spermi subscriptione
 
   ngOnInit() {
-    this.subAllUsers = this.getAllUsers();
+     this.getAllUsers();
+
+     // Refreshaj automatski, ako se update-a
+     setInterval(x => {
+         if (ProfileLstComponent.Refresh) {
+            this.getAllUsers(); 
+            ProfileLstComponent.Refresh = false;
+         }
+     }, 2000);
   }
 
   // Izvrsi unsubscribe-ove
 
   ngOnDestroy() {
-    this.subAllUsers.unsubscribe();
   }
 
   // Zove service za doh
   getAllUsers() {
-      return this.userService.getAllUsers().subscribe(x => {
+      return this.userService.getAllUsers().then(x => {
       // console.log(x);
       this.users = x;
     });
@@ -46,7 +52,7 @@ export class ProfileLstComponent implements OnInit, OnDestroy {
 
   getUsersDetails(id : number) {
     this.userService.getUsersDetails(id).then(x => {
-       console.log(x);
+       // console.log(x);
        this.userDetails[id] = x; 
        this.userDetails2 = x; 
     });

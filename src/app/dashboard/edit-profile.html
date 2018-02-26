@@ -10,6 +10,7 @@
             <mat-tab label="Osnovno">
                 <div class="profil-txt">
                     <form [formGroup]="rForm1" (ngSubmit)="submitGlavni(rForm1.value)">
+                        <input type="hidden" formControlName="id" />
                         <mat-form-field>
                             <input matInput placeholder="Ime" type="text" formControlName="ime" />
                         </mat-form-field>

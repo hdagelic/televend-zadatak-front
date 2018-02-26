@@ -6,14 +6,34 @@ export class UsersService {
 
   constructor( private http: HttpClient ) { }
 
-  getAllUsers(){
-    return this.http.get("http://karta-sverige.se:8080/osoba");
+  // Dohvacanje svih usera
+
+  getAllUsers() {
+    return this.http.get("http://karta-sverige.se:8080/osoba").toPromise();
   }
 
-  // Koristimo promise za ovo dohvatiti, tako da je ovo samo da ima
+  // Dohvacanje detalja
 
-  getUsersDetails(id : number){
+  getUsersDetails(id : number) {
     return this.http.get("http://karta-sverige.se:8080/osoba/" + id + "/detalji").toPromise();
+  }
+ 
+  // Update jednog usera
+
+  updateUser(id : number, data) {
+    return this.http.post("http://karta-sverige.se:8080/osoba/" + id, data).toPromise();
+  }
+
+  // Registracija usera
+
+  newUser(data) {
+    return this.http.post("http://karta-sverige.se:8080/osoba", data).toPromise();
+  }
+
+   // Brisanje usera
+
+   deleteUser(id) {
+    return this.http.delete("http://karta-sverige.se:8080/osoba/" + id).toPromise();
   }
 
 }

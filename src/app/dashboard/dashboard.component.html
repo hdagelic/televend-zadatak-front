@@ -40,8 +40,8 @@
     </ng-container>
 
     <ng-container matColumnDef="delete">
-      <mat-header-cell *matHeaderCellDef> Uredi </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="openDialog(element)">
+      <mat-header-cell *matHeaderCellDef> Obriši </mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="deleteUser(element.id)">
         <div class="delete">
           <mat-icon>delete</mat-icon>
         </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { UsersService } from "../services/users.service";
+import { ProfileLstComponent } from "../profile-lst/profile-lst.component";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms"
 
@@ -12,23 +13,42 @@ export class DashboardComponent implements OnInit {
   users;
   displayedColumns = ["id", "ime", "created_at", "updated_at", "edit", "delete"];
   
+  // Da li refreshati podatke?
+  public static Refresh = false;
 
   constructor(private userService: UsersService, public dialog: MatDialog) {}
 
 
   ngOnInit() {
     this.getAllUsers();
+
+    // Refresh, ako se update-a
+    setInterval(x => {
+      if (DashboardComponent.Refresh) {
+         this.getAllUsers(); 
+         DashboardComponent.Refresh = false;
+       }
+     }, 2000);
   }
 
   getAllUsers() {
-    this.userService.getAllUsers().subscribe(x => {
-      console.log(x);
+    this.userService.getAllUsers().then(x => {
+      // console.log(x);
       this.users = x;
     });
   }
 
   editThisUser(id) {
-    console.log(id);
+    // console.log(id);
+  }
+
+  deleteUser(id) {
+     console.log(id);
+     this.userService.deleteUser(id).then(x => {
+      // console.log(x);
+      this.getAllUsers();
+      ProfileLstComponent.Refresh = true;
+    });
   }
 
   openDialog(user): void {
@@ -38,7 +58,8 @@ export class DashboardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("The dialog was closed");
+      this.getAllUsers();
+      // console.log("The dialog was closed");
     });
   }
 }
@@ -107,6 +128,7 @@ export class EditProfileDialogClass implements OnInit{
     // Validators.compose([]) - za vise validacija
 
     this.rForm1 = this.fb.group({
+       'id': [this.user.id, Validators.required],
        'ime': [this.user.ime, Validators.required],
        'prezime': [this.user.prezime, Validators.required],
        'email': [this.user.email, Validators.required],
@@ -122,16 +144,16 @@ export class EditProfileDialogClass implements OnInit{
      // - validacija se obavlja automatski
      if (!this.rForm1.valid) return;
 
-     let err = false;
 
      // Spremi podatke u bazu
-     console.log(data);
-
-     // Ispiši je li uspjelo
-     if (!err) {
-       this.glavniSavedTxt = new Date().toLocaleString();
-     } else this.glavniSavedTxt = 'greška u spremanju.';
-     this.glavniSaved = true;
+     data['password'] = '';
+     // console.log(data);
+     this.userService.updateUser(data.id, data)
+        .then(x => { this.glavniSavedTxt = new Date().toLocaleString(); 
+                     this.glavniSaved = true;
+                     ProfileLstComponent.Refresh = true;
+              })
+        .catch(x => {this.glavniSavedTxt = 'greška u spremanju.'; this.glavniSaved = true; });
   }
 
 }

@@ -44,8 +44,37 @@
     </form>
   </mat-tab>
   <mat-tab label="Registracija">
-    <h3>Registracija</h3>
+    <h4>Registracija</h4>
+    <div class="registracija">
+    <form [formGroup]="rForm1" (ngSubmit)="registracija(rForm1.value)">
+        <mat-form-field>
+            <input matInput placeholder="Ime" type="text" formControlName="ime" />
+        </mat-form-field>
+        <mat-form-field>
+             <input matInput placeholder="Prezime" type="text" formControlName="prezime" />
+        </mat-form-field>
+        <br/>
+        <mat-form-field>
+             <input matInput placeholder="E-mail" type="text" formControlName="email" />
+        </mat-form-field>
+        <br/>
+        <mat-form-field>
+             <input matInput placeholder="Username" type="text" formControlName="username" />
+        </mat-form-field>
+        <br/>
+        <mat-form-field>
+            <input matInput placeholder="Password" type="password" formControlName="password" />
+       </mat-form-field>
+        <br/>
 
+
+        <br/><br/><br/>
+        <button mat-raised-button type="submit">Registriraj se</button>                       
+        <div *ngIf="glavniSaved == true" class="save-info">
+            {{ glavniSavedTxt }}
+        </div>
+    </form>
+    </div>
   </mat-tab>
 </mat-tab-group>
 
