@@ -1,0 +1,46 @@
+<div class="example-container mat-elevation-z8">
+    <mat-table #table [dataSource]="users">
+  
+      <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+  
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> ID. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="ime">
+        <mat-header-cell *matHeaderCellDef> Ime </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.ime}} {{element.prezime}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef> Mail adresa </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.email }} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="tip">
+        <mat-header-cell *matHeaderCellDef> Tip </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+         
+            <mat-icon class="naranca">accessibility</mat-icon>
+            <mat-icon class="naranca" *ngIf="element.role == 1">settings</mat-icon>
+            <mat-icon class="naranca" *ngIf="element.role == 2">call</mat-icon>
+          
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="view">
+        <mat-header-cell *matHeaderCellDef> Pogledaj </mat-header-cell>
+        <mat-cell *matCellDef="let element" (click)="openDialog(element)">
+          <div class="delete">
+            <mat-icon>face</mat-icon>
+          </div>
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  <br/><br/>
+  </div>

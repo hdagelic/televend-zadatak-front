@@ -1,0 +1,90 @@
+<span class="normal">
+    <span class="big">
+        <i>[edit : {{ user.ime + ' ' + user.prezime }}]</i>
+    </span>
+    <br/>
+    <br/>
+    <div class="dialog-in">
+
+        <mat-tab-group class="demo-tab-group-profil">
+            <mat-tab label="Osnovno">
+                <div class="profil-txt">
+                    <form [formGroup]="rForm1" (ngSubmit)="submitGlavni(rForm1.value)">
+                        <mat-form-field>
+                            <input matInput placeholder="Ime" type="text" formControlName="ime" />
+                        </mat-form-field>
+                        <mat-form-field>
+                             <input matInput placeholder="Prezime" type="text" formControlName="prezime" />
+                        </mat-form-field>
+                        <br/>
+                        <mat-form-field>
+                             <input matInput placeholder="E-mail" type="text" formControlName="email" />
+                        </mat-form-field>
+                        <br/>
+                        <mat-form-field>
+                             <input matInput placeholder="Username" type="text" formControlName="username" />
+                        </mat-form-field>
+                        <br/>
+
+                        <mat-radio-group formControlName="role">
+                           <mat-radio-button [value]="1">Admin</mat-radio-button>
+                           <mat-radio-button [value]="2">Manager</mat-radio-button>
+                           <mat-radio-button [value]="3">User</mat-radio-button>
+                        </mat-radio-group>
+
+                        <br/><br/>
+                        <button mat-raised-button type="submit">Spremi osnovne podatke</button>                       
+                        <div *ngIf="glavniSaved == true" class="save-info">
+                            Spremljeno u: {{ glavniSavedTxt }}
+                        </div>
+                    </form>
+                    <!--
+                        Ime:
+                        <span class="naranca2"> {{ user.ime }} </span>
+                        <br/> Prezime:
+                        <span class="naranca2"> {{ user.prezime }} </span>
+                        <br/> E-mail:
+                        <span class="naranca2"> {{ user.email }} </span>
+                        <br/> Username:
+                        <span class="naranca2"> {{ user.username }} </span>
+                        <br/> Role:
+                        <span class="naranca2"> {{ roleStr }} </span>
+                        <br/>
+                        <hr>
+                        <br/> Stvoreno:
+                        <span class="naranca2"> {{ user.created_at | date: "EEEE, d.M.yyyy, u h:mm" }}</span>
+                        <br/> Promijenjeno:
+                        <span class="naranca2"> {{ user.updated_at | date: "EEEE, d.M.yyyy, u h:mm" }}</span>
+                        -->
+                
+                </div>
+            </mat-tab>
+            <mat-tab label="Detalji">
+                <div class="profil-txt">
+                    Adresa:
+                    <span class="naranca2"> {{ details?.adresa }} </span>
+                    <br/> Poštanski broj:
+                    <span class="naranca2"> {{ details?.postcode }} </span>
+                    <br/> Telefon:
+                    <span class="naranca2"> {{ details?.telefon }} </span>
+                    <br/> Datum rođenja:
+                    <span class="naranca2"> {{ details?.datum_rodjenja | date: "EEEE, d.M.yyyy" }} </span>
+                    <br/> Spol:
+                    <span class="naranca2"> {{ details?.spol == 1 ? "žensko" : "muško" }} </span>
+                    <br/>
+                    <hr>
+                    <br/> Detalji stvoreni:
+                    <span class="naranca2"> {{ details?.created_at | date: "EEEE, d.M.yyyy, u h:mm" }}</span>
+                    <br/> Detalji promijenjeni:
+                    <span class="naranca2"> {{ details?.updated_at | date: "EEEE, d.M.yyyy, u h:mm" }}</span>
+                    <br/>
+                    <button mat-raised-button>Spremi detalje</button>
+                </div>
+            </mat-tab>
+
+        </mat-tab-group>
+        <br/>
+        <button mat-raised-button [mat-dialog-close]="true">Zatvori</button>
+
+    </div>
+</span>

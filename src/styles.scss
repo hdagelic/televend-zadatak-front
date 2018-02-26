@@ -1,0 +1,116 @@
+/* You can add global styles to this file, and also import other style files */
+
+img {
+  border: 0;
+}
+
+.slika-profil {
+   width: 130px;
+   vertical-align: top;
+   margin-right: 8px;
+}
+
+h3 {
+  padding: 18px;
+  color: lightgray;
+  font: 20px/32px Roboto,"Helvetica Neue",sans-serif;
+  font-weight: normal;
+  margin-left: 10px;
+}
+
+.big {
+  color: lightgray;
+  font: 20px/32px Roboto,"Helvetica Neue",sans-serif;
+  font-weight: normal;
+  margin-left: 0px;
+}
+
+.profil-txt {
+  padding: 18px;
+  color: lightgray;
+  font: 16px/28px Roboto,"Helvetica Neue",sans-serif;
+  font-weight: normal;
+  margin-left: 0px;
+}
+
+.normal {
+  padding: 8px;
+  color: lightgray;
+  font: 12px Roboto,"Helvetica Neue",sans-serif;
+  font-weight: normal;
+  margin-left: 8px;
+}
+
+.dialog-in {
+  padding: 8px;
+  margin-left: 5px;
+  margin-left: 8px;
+  min-height: 300px;
+}
+
+.save-info {
+  color: gray;
+  margin-top: 5px;
+  font: 12px Roboto,"Helvetica Neue",sans-serif;  
+}
+
+.spacer {
+    -webkit-box-flx: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+}
+
+.dolje {
+   color: white;
+   padding: 20px;
+   margin-right: 30px;
+   text-align: right;
+   cursor: pointer;
+}
+
+.demo-tab-group {
+    border-top: 7px dotted #aaa;
+    color: #333;
+    background-color: #222
+  }
+  
+.demo-tab-group-profil {
+    color: #333;
+    background-color: #222;
+}
+  
+
+.demo-tab-content {
+    padding: 16px;
+}
+
+.slika-gore {
+  border: none;
+  margin-bottom: 12px
+}
+
+.naranca {
+  color: #4ab8a1;
+
+}
+
+.naranca2 {
+  color: #f2cf61;
+
+}
+
+.delete {
+    width: 32px;
+    cursor: pointer;
+    &:hover {
+      color: #f2cf61;
+    }
+  }
+
+  .edit {
+    width: 32px;
+    cursor: pointer;
+    &:hover {
+      color: #f2cf61;
+    }
+  }

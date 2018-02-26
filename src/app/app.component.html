@@ -1,20 +1,52 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<mat-toolbar color="primary">
+  <span>Osobe - ljudi</span>
+  <div class="slika-gore">
+  <img src="assets/ljudi1.png"/>
+  </div>
+  <span class="spacer"></span>
+  <button mat-icon-button [matMenuTriggerFor]="appMenu">
+    <mat-icon aria-label="Example icon-button with a heart icon">more_vert</mat-icon>
+  </button>
+  <mat-menu #appMenu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>fingerprint</mat-icon>
+      <span>Login</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>announcement</mat-icon>
+      <span>Issues</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+
+<!-- <router-outlet></router-outlet> -->
+
+<mat-tab-group class="demo-tab-group" [selectedIndex]="selectedTab" (selectedTabChange)="tabChanged($event)">
+  <mat-tab label="Dashboard">
+    <app-dashboard></app-dashboard>
+    <div class="dolje">
+        <mat-icon class="naranca" (click)="selectedTab = 3">add_circle</mat-icon>
+    </div>
+  </mat-tab>
+  <mat-tab label="Profili">
+      <app-profile-lst></app-profile-lst>
+  </mat-tab>
+  <mat-tab label="E-mail">
+    <h3>Potvrda e-maila</h3>
+    <br/>
+    <form class="mail-form">
+      <mat-form-field class="mail-form-full-width">
+        <input matInput placeholder="E-mail adresa" value="">
+      </mat-form-field>
+      
+      <button mat-raised-button color="primary">Pošalji</button>
+
+    </form>
+  </mat-tab>
+  <mat-tab label="Registracija">
+    <h3>Registracija</h3>
+
+  </mat-tab>
+</mat-tab-group>
+
 

@@ -1,0 +1,56 @@
+<!-- <ng-container matColumnDef="userName">
+  <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+  <mat-cell *matCellDef="let users"> {{users.ime}} </mat-cell>
+</ng-container> -->
+
+<div class="example-container mat-elevation-z8">
+  <mat-table #table [dataSource]="users">
+
+    <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ime">
+      <mat-header-cell *matHeaderCellDef> Ime </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.ime}} {{element.prezime}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+      <mat-header-cell *matHeaderCellDef> Created </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.created_at | date: "d.M.yyyy, u h:mm"}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="updated_at">
+        <mat-header-cell *matHeaderCellDef> Updated </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.updated_at | date: "d.M.yyyy, u h:mm"}} </mat-cell>
+      </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef> Uredi </mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="openDialog(element)">
+        <div class="edit">
+          <mat-icon>create</mat-icon>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef> Uredi </mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="openDialog(element)">
+        <div class="delete">
+          <mat-icon>delete</mat-icon>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  
+</div>
