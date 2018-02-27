@@ -63,7 +63,7 @@ export class DashboardComponent implements OnInit {
 
   openDialog(user): void {
     let dialogRef = this.dialog.open(EditProfileDialogClass, {
-      width: "500px",
+      width: "580px",
       data: user
     });
 
@@ -95,10 +95,14 @@ export class EditProfileDialogClass implements OnInit{
   
   rForm1 : FormGroup;
   rForm2 : FormGroup;
+  rForm3 : FormGroup;
   glavniSaved = false;
   detaljiSaved = false;
+  slikaSaved = false;
   glavniSavedTxt;
   detaljiSavedTxt;
+  slikaSavedTxt;
+  detailsLoaded = false;
 
   constructor(
     public dialogRef: MatDialogRef<EditProfileDialogClass>,
@@ -112,9 +116,34 @@ export class EditProfileDialogClass implements OnInit{
     this.dialogRef.close();
   }
 
+  // Stvori formu za edit osnovnih podataka
+  // poziva se nakon dohvata podataka
+
+  stvoriFormuDetalji() {
+     
+    this.rForm2 = this.fb.group({
+      'id': [this.user.id, Validators.nullValidator],
+      'adresa': [this.details.adresa, Validators.nullValidator],
+      'postcode': [this.details.postcode, Validators.nullValidator],
+      'telefon': [this.details.telefon, Validators.nullValidator],
+      'datum_rodjenja': [this.details.datum_rodjenja, Validators.nullValidator],
+      'spol': [this.details.spol, Validators.nullValidator],
+      'slika': [this.details.slika, Validators.nullValidator],
+    })
+
+    this.rForm3 = this.fb.group({
+      'id': [this.user.id, Validators.nullValidator],
+      'slika' : null
+    })
+
+    this.detailsLoaded = true;
+  }
+
+
   getUsersDetails(id : number) {
     this.userService.getUsersDetails(id).then(x => {
        this.details = x; 
+       this.stvoriFormuDetalji();
     });
   }
 
@@ -132,9 +161,10 @@ export class EditProfileDialogClass implements OnInit{
     else if (this.user.role == 2) this.roleStr = "Manager";
     else if (this.user.role == 3) this.roleStr = "User";
 
+    this.detailsLoaded = false;
     this.getUsersDetails(this.id);
 
-    // Stvori formu za edit osnovnih podataka
+   // Stvori formu za edit osnovnih podataka
     // Validators.compose([]) - za vise validacija
 
     this.rForm1 = this.fb.group({
@@ -145,6 +175,7 @@ export class EditProfileDialogClass implements OnInit{
        'username': [this.user.username, Validators.required],
        'role': [this.user.role, Validators.required],
     })
+
 
   }
 
@@ -164,6 +195,49 @@ export class EditProfileDialogClass implements OnInit{
                      ProfileLstComponent.Refresh = true;
               })
         .catch(x => {this.glavniSavedTxt = 'greška u spremanju.'; this.glavniSaved = true; });
+  }
+
+  submitDetails(data) {
+
+    // Ako forma nije ispravna - ne spremaj
+    // - validacija se obavlja automatski
+    if (!this.rForm2.valid) return;
+
+    // console.log(data);
+    this.userService.updateUserDetails(data.id, data)
+        .then(x => { this.detaljiSavedTxt = new Date().toLocaleString(); 
+                     this.detaljiSaved = true;
+              })
+        .catch(x => {this.detaljiSavedTxt = 'greška u spremanju.'; this.detaljiSaved = true; });
+
+  }
+
+  // Upload slike
+
+  onFileChange(event) {
+    if(event.target.files.length > 0) {
+      let file = event.target.files[0];
+      this.rForm3.get('slika').setValue(file);
+    }
+  }
+
+  private prepareSave(): any {
+    let input = new FormData();
+    // This can be done a lot prettier; for example automatically assigning values by looping through `this.form.controls`, but we'll keep it as simple as possible here
+    input.append('slika', this.rForm3.get('slika').value);
+    return input;
+  }
+
+
+  spremiSliku(data) {
+     console.log(data.slika);
+
+     this.userService.uploadSlike(data.id, this.prepareSave())
+        .then(x => { this.slikaSavedTxt = new Date().toLocaleString(); 
+                     this.slikaSaved = true;
+              })
+        .catch(x => {this.slikaSavedTxt = 'greška u spremanju.'; this.slikaSaved = true; });
+     
   }
 
 }

@@ -15,26 +15,27 @@
                             <input matInput placeholder="Ime" type="text" formControlName="ime" />
                         </mat-form-field>
                         <mat-form-field>
-                             <input matInput placeholder="Prezime" type="text" formControlName="prezime" />
+                            <input matInput placeholder="Prezime" type="text" formControlName="prezime" />
                         </mat-form-field>
                         <br/>
                         <mat-form-field>
-                             <input matInput placeholder="E-mail" type="text" formControlName="email" />
+                            <input matInput placeholder="E-mail" type="text" formControlName="email" />
                         </mat-form-field>
                         <br/>
                         <mat-form-field>
-                             <input matInput placeholder="Username" type="text" formControlName="username" />
+                            <input matInput placeholder="Username" type="text" formControlName="username" />
                         </mat-form-field>
                         <br/>
 
                         <mat-radio-group formControlName="role">
-                           <mat-radio-button [value]="1">Admin</mat-radio-button>
-                           <mat-radio-button [value]="2">Manager</mat-radio-button>
-                           <mat-radio-button [value]="3">User</mat-radio-button>
+                            <mat-radio-button [value]="1">Admin</mat-radio-button>
+                            <mat-radio-button [value]="2">Manager</mat-radio-button>
+                            <mat-radio-button [value]="3">User</mat-radio-button>
                         </mat-radio-group>
 
-                        <br/><br/>
-                        <button mat-raised-button type="submit">Spremi osnovne podatke</button>                       
+                        <br/>
+                        <br/>
+                        <button mat-raised-button type="submit">Spremi osnovne podatke</button>
                         <div *ngIf="glavniSaved == true" class="save-info">
                             Spremljeno u: {{ glavniSavedTxt }}
                         </div>
@@ -57,29 +58,58 @@
                         <br/> Promijenjeno:
                         <span class="naranca2"> {{ user.updated_at | date: "EEEE, d.M.yyyy, u h:mm" }}</span>
                         -->
-                
+
                 </div>
             </mat-tab>
             <mat-tab label="Detalji">
                 <div class="profil-txt">
-                    Adresa:
-                    <span class="naranca2"> {{ details?.adresa }} </span>
-                    <br/> Poštanski broj:
-                    <span class="naranca2"> {{ details?.postcode }} </span>
-                    <br/> Telefon:
-                    <span class="naranca2"> {{ details?.telefon }} </span>
-                    <br/> Datum rođenja:
-                    <span class="naranca2"> {{ details?.datum_rodjenja | date: "EEEE, d.M.yyyy" }} </span>
-                    <br/> Spol:
-                    <span class="naranca2"> {{ details?.spol == 1 ? "žensko" : "muško" }} </span>
-                    <br/>
-                    <hr>
-                    <br/> Detalji stvoreni:
-                    <span class="naranca2"> {{ details?.created_at | date: "EEEE, d.M.yyyy, u h:mm" }}</span>
-                    <br/> Detalji promijenjeni:
-                    <span class="naranca2"> {{ details?.updated_at | date: "EEEE, d.M.yyyy, u h:mm" }}</span>
-                    <br/>
-                    <button mat-raised-button>Spremi detalje</button>
+                    <form *ngIf="detailsLoaded" [formGroup]="rForm2" (ngSubmit)="submitDetails(rForm2.value)">
+                        <input type="hidden" formControlName="id" />
+                        <mat-form-field>
+                            <input matInput placeholder="Adresa" type="text" formControlName="adresa" />
+                        </mat-form-field>
+                        
+                        <mat-form-field>
+                            <input matInput placeholder="Poštanski broj" type="text" formControlName="postcode" />
+                        </mat-form-field>
+                        <br/>
+                        <mat-form-field>
+                            <input matInput placeholder="Telefon" type="text" formControlName="telefon" />
+                        </mat-form-field>
+                        <br/>
+                        <mat-form-field>
+                            <input matInput placeholder="Datum rođenja (Y-M-D)" type="text" formControlName="datum_rodjenja" />
+                        </mat-form-field>
+                        <br/>
+
+                        <mat-radio-group formControlName="spol">
+                            <mat-radio-button [value]="0">Muško</mat-radio-button>
+                            <mat-radio-button [value]="1">Žensko</mat-radio-button>
+                        </mat-radio-group>
+
+                        <br/>
+                        <br/>
+                        <button mat-raised-button type="submit">Spremi detalje</button>
+                        <div *ngIf="detaljiSaved == true" class="save-info">
+                            Spremljeno u: {{ detaljiSavedTxt }}
+                        </div>
+                    </form>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Slika">
+                <div class="profil-txt">
+                   <form *ngIf="detailsLoaded" [formGroup]="rForm3" (ngSubmit)="spremiSliku(rForm3.value)">
+                     <input type="hidden" formControlName="id" />
+                        <br/><br/>
+                     <input #fileInput type="file" name="slika" id="slika" (change)="onFileChange($event)" />
+                     <br/><br/><br/>
+                     <button mat-raised-button type="submit">Spremi sliku</button>
+                    </form>
+                    <br/><br/><br/>
+                    <div *ngIf="slikaSaved == true" class="save-info">
+                        Spremljeno u: {{ slikaSavedTxt }}
+                    </div>
                 </div>
             </mat-tab>
 

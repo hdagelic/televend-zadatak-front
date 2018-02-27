@@ -24,16 +24,28 @@ export class UsersService {
     return this.http.post("http://karta-sverige.se:8080/osoba/" + id, data).toPromise();
   }
 
+  // Update detalja jednog usera
+
+  updateUserDetails(id : number, data) {
+      return this.http.post("http://karta-sverige.se:8080/osoba/" + id + "/detalji", data).toPromise();
+  }
+
   // Registracija usera
 
   newUser(data) {
     return this.http.post("http://karta-sverige.se:8080/osoba", data).toPromise();
   }
 
-   // Brisanje usera
+  // Brisanje usera
 
-   deleteUser(id) {
+  deleteUser(id) {
     return this.http.delete("http://karta-sverige.se:8080/osoba/" + id).toPromise();
+  }
+
+  // Upload slike
+
+  uploadSlike(id, data) {
+    return this.http.post("http://karta-sverige.se:8080/osoba/" + id + "/uploadslike", data).toPromise();
   }
 
 }

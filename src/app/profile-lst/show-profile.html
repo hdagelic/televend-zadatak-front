@@ -47,6 +47,11 @@
                     <span class="naranca2"> {{ details?.updated_at | date: "EEEE, d.M.yyyy, u h:mm" }}</span>
                 </div>
             </mat-tab>
+            <mat-tab label="Slika">
+                <div class="profil-txt" style="text-align : center">
+                   <img class="slika-cijela" src="http://karta-sverige.se:8080/{{ details?.slika }}" />
+                </div>
+            </mat-tab>
 
         </mat-tab-group>
         <br/>

@@ -74,7 +74,7 @@ export class ProfileLstComponent implements OnInit, OnDestroy {
   openDialog(user): void {
   
     let dialogRef = this.dialog.open(ShowProfileDialogClass, {
-      width: "500px",
+      width: "580px",
       data: user
     });
   }
