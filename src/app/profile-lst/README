@@ -32,3 +32,10 @@ INTERFEJS
 
 Napravljen u Angularu 5, koristeci "angular material" forme i kontrole. Moze se koristiti i na 
 mobitelu, a ovisno o rezoluciji neka se polja dashboarda i profila izbacuju, radi preglednosti.
+
+
+BACKEND 
+-------
+
+Napravljen u flask restplus-u, i dostupan na http://karta-sverige.se:8080. Tamo se nalazi
+i dokumentacija podrzadnih poziva s opisom JSON podataka za svaku od njih.  
