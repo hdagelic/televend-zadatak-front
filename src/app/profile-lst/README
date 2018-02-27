@@ -1,0 +1,34 @@
+Build za produkciju:
+   ng build --prod --base-href /televend-zadatak-front/
+
+Test run:
+   ng serve, development server na localhost:4200
+
+KORISTENJE
+----------
+
+Napomena: na mrezi mora biti dozvoljen port 8080, jer se on koristi za komunikaciju 
+s backendom.
+
+* Dashboard - predvidjeno za uredjivanje usera, kada je ulogiran administrator ili manager -
+vidi sve ljude, a kada je ulogiran obican user - vidi samo sebe. Klikom na ikonu za brisanje, 
+osoba se odmah brise, a klikom na ikonu za uredjivanje - otvara se dialog s formom za 
+uredjivanje. Ovdje se mogu takodjer urediti ili postaviti detalji. Kad se osoba uredi, podaci
+u listi se automatski refreshaju.
+
+* Profili - to je ekran predvidjen za pregled profila, i javan je.
+
+* Registracija - ovdje se moze registrirati novi user. Nakon registracije otvara se "Dashboard",
+gdje se mogu postaviti detalji. 
+
+* E-mail - ekran za potvrdu e-maila, stoji reda radi, ali nije u funkciji. Da se upogoni,
+trebalo bi u bazu dodati polje "e-mail-kod-potvrde" u kojem bi bio random string, generiran
+kod registracije. Ovaj string bi se pozivom na api poslao na registriranu e-mail adresu:
+kao link http//..../id-osobe/string. Api pozivom na ovaj url bi se u polje "e-mail-kod-potvrde"
+stavilo "ok", sto bi se koristilo u filtriranju podataka u backendu.
+
+INTERFEJS
+---------
+
+Napravljen u Angularu 5, koristeci "angular material" forme i kontrole. Moze se koristiti i na 
+mobitelu, a ovisno o rezoluciji neka se polja dashboarda i profila izbacuju, radi preglednosti.
