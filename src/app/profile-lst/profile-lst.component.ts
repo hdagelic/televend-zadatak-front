@@ -26,7 +26,7 @@ export class ProfileLstComponent implements OnInit, OnDestroy {
   // Dohvati podatke, i spermi subscriptione
 
   ngOnInit() {
-     // this.getAllUsers();
+     this.getAllUsers();
 
      // Refreshaj automatski, ako se update-a
      setInterval(x => {
