@@ -34,10 +34,7 @@ export class AppComponent implements OnInit {
      this.selectedTab = e.index;
    }
 
-   ngOnInit() {
-     // Stvori formu za edit osnovnih podataka
-     // Validators.compose([]) - za vise validacija
-
+   createForm() {
      this.rForm1 = this.fb.group({
        'ime': ["", Validators.required],
        'prezime': ["", Validators.required],
@@ -45,6 +42,14 @@ export class AppComponent implements OnInit {
        'username': ["", Validators.required],
        'password': ["", Validators.required],
      })
+   }
+
+
+   ngOnInit() {
+     // Stvori formu za edit osnovnih podataka
+     // Validators.compose([]) - za vise validacija
+
+     this.createForm();
    }
 
    registracija(data) {
