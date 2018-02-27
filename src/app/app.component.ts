@@ -20,6 +20,8 @@ export class AppComponent implements OnInit {
    rForm1 : FormGroup;
    glavniSaved = false;
    glavniSavedTxt;
+   ulogiran = false;
+   ulogiranJe = {};
 
    constructor(
     private userService: UsersService,
@@ -28,6 +30,15 @@ export class AppComponent implements OnInit {
    {
 
    }
+
+
+  // Za provjeru logina
+
+  checkLogin() {
+     this.ulogiran = !this.ulogiran;
+     this.ulogiranJe['ime'] = 'Hrvoje';
+  }
+
    // Zapamti na kojem si indexu, da se moze koristiti programsko prebacivanje
    
    tabChanged (e: MatTabChangeEvent) {

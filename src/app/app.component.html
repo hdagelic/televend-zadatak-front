@@ -4,17 +4,21 @@
   <img src="assets/ljudi1.png"/>
   </div>
   <span class="spacer"></span>
+  <span *ngIf="ulogiran">
+  Dobrodošli, {{ ulogiranJe["ime"] }} &nbsp;&nbsp;
+  </span>
   <button mat-icon-button [matMenuTriggerFor]="appMenu">
     <mat-icon aria-label="Example icon-button with a heart icon">more_vert</mat-icon>
   </button>
   <mat-menu #appMenu="matMenu">
-    <button mat-menu-item>
+    <button mat-menu-item (click)="checkLogin()">
       <mat-icon>fingerprint</mat-icon>
-      <span>Login</span>
+      <span *ngIf="ulogiran">Logout</span>
+      <span *ngIf="!ulogiran">Login</span>
     </button>
     <button mat-menu-item disabled>
       <mat-icon>announcement</mat-icon>
-      <span>Issues</span>
+      <span>Help</span>
     </button>
   </mat-menu>
 </mat-toolbar>

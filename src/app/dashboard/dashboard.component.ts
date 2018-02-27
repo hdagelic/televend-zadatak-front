@@ -173,6 +173,7 @@ export class EditProfileDialogClass implements OnInit{
        'prezime': [this.user.prezime, Validators.required],
        'email': [this.user.email, Validators.required],
        'username': [this.user.username, Validators.required],
+       'password': ["", Validators.nullValidator],
        'role': [this.user.role, Validators.required],
     })
 
@@ -187,7 +188,7 @@ export class EditProfileDialogClass implements OnInit{
 
 
      // Spremi podatke u bazu
-     data['password'] = '';
+     // data['password'] = '';
      // console.log(data);
      this.userService.updateUser(data.id, data)
         .then(x => { this.glavniSavedTxt = new Date().toLocaleString(); 
@@ -230,7 +231,7 @@ export class EditProfileDialogClass implements OnInit{
 
 
   spremiSliku(data) {
-     console.log(data.slika);
+     // console.log(data.slika);
 
      this.userService.uploadSlike(data.id, this.prepareSave())
         .then(x => { this.slikaSavedTxt = new Date().toLocaleString(); 
