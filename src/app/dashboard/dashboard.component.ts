@@ -11,8 +11,16 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms"
 })
 export class DashboardComponent implements OnInit {
   users;
-  displayedColumns = ["id", "ime", "created_at", "updated_at", "edit", "delete"];
+  displayedColumns = [];
   
+  // Stvari koje se trebaju mijenjati ovisno o rezoluciji
+  
+  setDisplay(width) {
+     if (width > 600)  this.displayedColumns = ["id", "ime", "created_at", "updated_at", "edit", "delete"];
+        else this.displayedColumns = ["id", "ime", "edit", "delete"];
+  }
+
+   
   // Da li refreshati podatke?
   public static Refresh = false;
 
@@ -20,6 +28,7 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit() {
+    this.setDisplay(window.innerWidth);
     this.getAllUsers();
 
     // Refresh, ako se update-a
@@ -28,7 +37,8 @@ export class DashboardComponent implements OnInit {
          this.getAllUsers(); 
          DashboardComponent.Refresh = false;
        }
-     }, 2000);
+       this.setDisplay(window.innerWidth);
+      }, 2000);
   }
 
   getAllUsers() {

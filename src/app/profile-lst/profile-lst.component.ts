@@ -14,8 +14,15 @@ export class ProfileLstComponent implements OnInit, OnDestroy {
   users;
   userDetails = {}
   userDetails2;
-  displayedColumns = ["id", "ime", "email", "tip", "view"];
+  displayedColumns = [];
   
+  // Stvari koje se trebaju mijenjati ovisno o rezoluciji
+
+  setDisplay(width) {
+     if (width > 600)  this.displayedColumns = ["id", "ime", "email", "tip", "view"];
+        else this.displayedColumns = ["id", "ime", "tip", "view"];
+  }
+
   // Da li refreshati podatke?
   public static Refresh = false;
 
@@ -27,6 +34,7 @@ export class ProfileLstComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
      this.getAllUsers();
+     this.setDisplay(window.innerWidth);
 
      // Refreshaj automatski, ako se update-a
      setInterval(x => {
@@ -34,6 +42,7 @@ export class ProfileLstComponent implements OnInit, OnDestroy {
             this.getAllUsers(); 
             ProfileLstComponent.Refresh = false;
          }
+         this.setDisplay(window.innerWidth);
      }, 2000);
   }
 
