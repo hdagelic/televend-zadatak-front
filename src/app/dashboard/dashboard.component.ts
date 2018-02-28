@@ -48,11 +48,31 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  editThisUser(id) {
-    // console.log(id);
+
+  jelAktivanEdit(uid) {
+   // if (!this.ulogiran) return "gray";
+    let ulogiranS = localStorage.getItem("ulogiran");
+    if (!ulogiranS) return "gray";
+      else {
+         // ako je manager ili admin, vrati true
+         // ako je user - vrati true samo za njega
+         let ulogiran_roleS = localStorage.getItem("ulogiran-role");
+         let ulogiran_idS = localStorage.getItem("ulogiran-id");
+         
+         if (ulogiran_roleS == "1" || ulogiran_roleS == "2") return "white";
+         if (ulogiran_idS == uid) return "white";
+
+         return "gray";
+      }
   }
+  
 
   deleteUser(id) {
+    if (this.jelAktivanEdit(id) == "gray") {
+       alert("Nemate prava za uređivanje. Provjerite login.");
+       return;
+    }
+
      console.log(id);
      this.userService.deleteUser(id).then(x => {
       // console.log(x);
@@ -62,6 +82,11 @@ export class DashboardComponent implements OnInit {
   }
 
   openDialog(user): void {
+    if (this.jelAktivanEdit(user.id) == "gray") {
+      alert("Nemate prava za uređivanje. Provjerite login.");
+      return;
+    }
+
     let dialogRef = this.dialog.open(EditProfileDialogClass, {
       width: "580px",
       data: user
@@ -186,6 +211,10 @@ export class EditProfileDialogClass implements OnInit{
      // - validacija se obavlja automatski
      if (!this.rForm1.valid) return;
 
+     if ((this.user.role == '3') && (data.role != '3')) {
+         this.glavniSavedTxt = 'obični korisnik ne može mijenjati role.'; this.glavniSaved = true;
+         return;
+     } 
 
      // Spremi podatke u bazu
      // data['password'] = '';

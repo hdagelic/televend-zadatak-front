@@ -21,13 +21,19 @@ export class UsersService {
   // Update jednog usera
 
   updateUser(id : number, data) {
-    return this.http.post("http://karta-sverige.se:8080/osoba/" + id, data).toPromise();
+    let jwt_string = 'JWT ' + localStorage.getItem("ulogiran-token");    
+    return this.http.post("http://karta-sverige.se:8080/osoba/" + id, data,
+
+                            { headers: { 'Authorization': jwt_string } }).toPromise();
   }
 
   // Update detalja jednog usera
 
   updateUserDetails(id : number, data) {
-      return this.http.post("http://karta-sverige.se:8080/osoba/" + id + "/detalji", data).toPromise();
+    let jwt_string = 'JWT ' + localStorage.getItem("ulogiran-token");    
+    return this.http.post("http://karta-sverige.se:8080/osoba/" + id + "/detalji", data,
+  
+                            { headers: { 'Authorization': jwt_string } }).toPromise();
   }
 
   // Registracija usera
@@ -39,13 +45,34 @@ export class UsersService {
   // Brisanje usera
 
   deleteUser(id) {
-    return this.http.delete("http://karta-sverige.se:8080/osoba/" + id).toPromise();
+    let jwt_string = 'JWT ' + localStorage.getItem("ulogiran-token");    
+    return this.http.delete("http://karta-sverige.se:8080/osoba/" + id,
+
+                         { headers: { 'Authorization': jwt_string } } ).toPromise();
   }
 
   // Upload slike
 
   uploadSlike(id, data) {
-    return this.http.post("http://karta-sverige.se:8080/osoba/" + id + "/uploadslike", data).toPromise();
+    let jwt_string = 'JWT ' + localStorage.getItem("ulogiran-token");    
+    return this.http.post("http://karta-sverige.se:8080/osoba/" + id + "/uploadslike", data,
+  
+                        { headers: { 'Authorization': jwt_string } } ).toPromise();
   }
+
+  // Login - data je "username" i "password" u JSON formatu
+
+   login(data) {
+     return this.http.post("http://karta-sverige.se:8080/auth", data).toPromise();
+   }
+    
+   // data - access_token
+
+   getLoginUser(token) {
+     let jwt_string = 'JWT ' + token;
+     console.log(jwt_string);
+     return this.http.get("http://karta-sverige.se:8080/xauthenticated", 
+     { headers: { 'Authorization': jwt_string } }).toPromise();
+   }
 
 }

@@ -1,20 +1,20 @@
 <mat-toolbar color="primary">
-  <span>Osobe - ljudi</span>
+  <span *ngIf="velikiEkran">Osobe - ljudi</span>
   <div class="slika-gore">
   <img src="assets/ljudi1.png"/>
   </div>
   <span class="spacer"></span>
-  <span *ngIf="ulogiran">
-  Dobrodošli, {{ ulogiranJe["ime"] }} &nbsp;&nbsp;
+  <span *ngIf="jelUlogiran()">
+  <span *ngIf="velikiEkran">Dobrodošli,</span> {{ dajLoginIme() }} &nbsp;&nbsp;
   </span>
   <button mat-icon-button [matMenuTriggerFor]="appMenu">
     <mat-icon aria-label="Example icon-button with a heart icon">more_vert</mat-icon>
   </button>
   <mat-menu #appMenu="matMenu">
-    <button mat-menu-item (click)="checkLogin()">
+    <button mat-menu-item (click)="checkLogin(false)">
       <mat-icon>fingerprint</mat-icon>
-      <span *ngIf="ulogiran">Logout</span>
-      <span *ngIf="!ulogiran">Login</span>
+      <span *ngIf="jelUlogiran()">Logout</span>
+      <span *ngIf="!jelUlogiran()">Login</span>
     </button>
     <button mat-menu-item disabled>
       <mat-icon>announcement</mat-icon>
@@ -49,7 +49,7 @@
   </mat-tab>
   <mat-tab label="Registracija">
     <h4>Registracija</h4>
-    <div class="registracija">
+    <div class="registracija" *ngIf="selectedTab == 3">
     <form [formGroup]="rForm1" (ngSubmit)="registracija(rForm1.value)">
         <mat-form-field>
             <input matInput placeholder="Ime" type="text" formControlName="ime" />

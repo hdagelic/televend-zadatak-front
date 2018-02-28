@@ -1,0 +1,21 @@
+<div class="profil-txt">
+
+    <form [formGroup]="loginForm" (ngSubmit)="loginUserPass(loginForm.value)">
+        <mat-form-field>
+            <input matInput placeholder="Korisničko ime" type="text" formControlName="username" />
+        </mat-form-field>
+        <br/>
+        <mat-form-field>
+            <input matInput placeholder="Lozinka" type="password" formControlName="password" />
+        </mat-form-field>
+        <br/><br/>
+        <button mat-raised-button type="submit">Login</button>        
+        <button mat-raised-button [mat-dialog-close]="true">Zatvori</button>
+        
+        <div *ngIf="loginErr" class="save-info">
+           <br/>
+           neuspješan login, pokušajte ponovno.
+        </div>
+    </form>
+
+</div>

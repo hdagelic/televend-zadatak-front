@@ -26,6 +26,7 @@ import { MatDialogModule } from "@angular/material";
 
 import { EditProfileDialogClass } from "./dashboard/dashboard.component";
 import { ProfileLstComponent, ShowProfileDialogClass } from './profile-lst/profile-lst.component';
+import { LoginDialogClass } from './app.component';
 
 import { Component } from '@angular/core';
 
@@ -41,6 +42,7 @@ const appRoutes: Routes = [
      DashboardComponent, 
      ProfileComponent, 
      EditProfileDialogClass, 
+     LoginDialogClass, 
      ProfileLstComponent,
      ShowProfileDialogClass],
   imports: [
@@ -69,7 +71,8 @@ const appRoutes: Routes = [
   ],
   entryComponents: [
     EditProfileDialogClass,
-    ShowProfileDialogClass
+    ShowProfileDialogClass,
+    LoginDialogClass
   ],
   providers: [UsersService],
   bootstrap: [AppComponent]

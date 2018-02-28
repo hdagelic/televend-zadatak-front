@@ -10,24 +10,25 @@
               The actual rendered columns are set as a property on the row definition" -->
 
     <!-- Position Column -->
+    
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> ID. </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+      <mat-cell *matCellDef="let element" [style.color] = jelAktivanEdit(element.id)> {{element.id}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="ime">
       <mat-header-cell *matHeaderCellDef> Ime </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.ime}} {{element.prezime}} </mat-cell>
+      <mat-cell *matCellDef="let element" [style.color] = jelAktivanEdit(element.id)> {{element.ime}} {{element.prezime}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="created_at">
       <mat-header-cell *matHeaderCellDef> Created </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.created_at | date: "d.M.yyyy, u h:mm"}} </mat-cell>
+      <mat-cell *matCellDef="let element" [style.color] = jelAktivanEdit(element.id)> {{element.created_at | date: "d.M.yyyy, u h:mm"}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="updated_at">
         <mat-header-cell *matHeaderCellDef> Updated </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.updated_at | date: "d.M.yyyy, u h:mm"}} </mat-cell>
+        <mat-cell *matCellDef="let element" [style.color] = jelAktivanEdit(element.id)> {{element.updated_at | date: "d.M.yyyy, u h:mm"}} </mat-cell>
       </ng-container>
 
     <ng-container matColumnDef="edit">
