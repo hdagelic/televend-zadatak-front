@@ -190,7 +190,7 @@ export class EditProfileDialogClass implements OnInit{
     this.getUsersDetails(this.id);
 
    // Stvori formu za edit osnovnih podataka
-    // Validators.compose([]) - za vise validacija
+   // Validators.compose([]) - za vise validacija
 
     this.rForm1 = this.fb.group({
        'id': [this.user.id, Validators.required],
@@ -211,7 +211,9 @@ export class EditProfileDialogClass implements OnInit{
      // - validacija se obavlja automatski
      if (!this.rForm1.valid) return;
 
-     if ((this.user.role == '3') && (data.role != '3')) {
+     let ulogiran_roleS = localStorage.getItem("ulogiran-role");
+     
+     if ((ulogiran_roleS == '3') && (data.role != '3')) {
          this.glavniSavedTxt = 'obični korisnik ne može mijenjati role.'; this.glavniSaved = true;
          return;
      } 
